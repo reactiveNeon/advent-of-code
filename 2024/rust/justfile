@@ -1,0 +1,6 @@
+create day:
+  cargo generate --path ./daily-template --name {{day}}
+  just get-inputs {{day}}
+
+get-inputs day:
+  ./scripts/get-inputs.sh --day {{day}} --cwd {{justfile_directory()}}
