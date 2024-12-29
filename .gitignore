@@ -1,5 +1,7 @@
 .env
 
 # problem input files
-**/inputs/1.txt
-**/inputs/2.txt
+**/inputs/input1.txt
+**/inputs/input2.txt
+**/inputs/test1.txt
+**/inputs/test2.txt

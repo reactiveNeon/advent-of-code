@@ -3,4 +3,4 @@ create day:
   just get-inputs {{day}}
 
 get-inputs day:
-  ./scripts/get-inputs.sh --day {{day}} --cwd {{justfile_directory()}}
+  get-inputs.sh --day {{day}} --year 2024 --root-dir {{justfile_directory()}}

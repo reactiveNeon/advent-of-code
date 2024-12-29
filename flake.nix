@@ -22,6 +22,8 @@
         ];
       in nixPackages ++ [];
 
+      dbus = pkgs.dbus;
+
       nativeBuildInputs = let
         nixPackages = with pkgs; [
           pkg-config
@@ -31,8 +33,12 @@
           rustc
         ];
       in nixPackages ++ [];
+
+      shellHook = ''
+        PATH=$PATH:/home/unrav/.cargo/bin
+        PATH=$PATH:"$(git rev-parse --show-toplevel)"/scripts
+      '';
     };
 
-    dbus = pkgs.dbus;
   };
 }

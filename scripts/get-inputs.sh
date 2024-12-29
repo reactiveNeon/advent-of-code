@@ -1,12 +1,15 @@
 #!/bin/bash
 
-# Usage: ./script.sh --day <day> --cwd </path/to/root>
+# Usage: ./script.sh --day <day> --year <year> --root-dir </path/to/root>
+# Example: ./script.sh --day day-01 --year 2024 --root-dir .
 
 set -euo pipefail
 
+REPO_DIR="$(git rev-parse --show-toplevel)"
+
 # Load environment variables from .env file
-if [ -f .env ]; then
-    source .env
+if [ -f "$REPO_DIR/.env" ]; then
+    source "$REPO_DIR/.env"
 else
     echo "Error: .env file not found." >&2
     exit 1
@@ -20,12 +23,16 @@ fi
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
-        --day)
+        -d|--day)
             DAY="$2"
             shift 2
             ;;
-        --cwd)
-            CWD="$2"
+        -y|--year)
+            YEAR="$2"
+            shift 2
+            ;;
+        --root-dir)
+            ROOT_DIR="$2"
             shift 2
             ;;
         *)
@@ -38,12 +45,12 @@ done
 DAY_NUMBER="${DAY#day-}"
 DAY_NUMBER_NO_LEADING_ZEROS=$(echo "$DAY_NUMBER" | sed 's/^0*//')
 
-URL="https://adventofcode.com/2024/day/$DAY_NUMBER_NO_LEADING_ZEROS/input"
+URL="https://adventofcode.com/$YEAR/day/$DAY_NUMBER_NO_LEADING_ZEROS/input"
 
 echo "Sending request to '$URL'"
 
-TARGET_DIR="$CWD/$DAY/inputs"
-mkdir -p "$TARGET_DIR"
+INPUTS_DIR="${ROOT_DIR}/${DAY}/inputs"
+mkdir -p "$INPUTS_DIR"
 
 INPUT_DATA=$(curl -sSL -H "Cookie: session=$SESSION" "$URL")
 if [[ -z "$INPUT_DATA" ]]; then
@@ -51,10 +58,13 @@ if [[ -z "$INPUT_DATA" ]]; then
     exit 1
 fi
 
-for FILENAME in "1.txt" "2.txt"; do
-    FILE_PATH="$TARGET_DIR/$FILENAME"
+for FILENAME in "input1.txt" "input2.txt"; do
+    FILE_PATH="$INPUTS_DIR/$FILENAME"
     echo "$INPUT_DATA" > "$FILE_PATH"
     echo "Wrote to $FILE_PATH"
 done
+
+touch "${INPUTS_DIR}/test1.txt"
+touch "${INPUTS_DIR}/test2.txt"
 
 echo "Successful!!"
