@@ -1,0 +1,32 @@
+# Rust Language Justfile
+# Works for any year
+
+# Get the root directory and language template directory
+root_dir := justfile_directory() / ".." / ".."
+template_dir := justfile_directory() / "template"
+
+# Create a new day
+create year day:
+  #!/usr/bin/env bash
+  set -euo pipefail
+  
+  year_dir="{{root_dir}}/{{year}}/rust"
+  mkdir -p "$year_dir"
+  cd "$year_dir"
+  cargo generate --path {{template_dir}} --name {{day}}
+
+# Get inputs for a day
+get-inputs year day:
+  {{root_dir}}/scripts/get-inputs.sh --day {{day}} --year {{year}} --root-dir {{root_dir}}/{{year}}/rust
+
+# Run a solution
+run year day part:
+  cd {{root_dir}}/{{year}}/rust/{{day}} && cargo run --bin part{{part}}
+
+# Test a specific part
+test year day part:
+  cd {{root_dir}}/{{year}}/rust/{{day}} && cargo test part{{part}}
+
+# Test all parts
+test-all year day:
+  cd {{root_dir}}/{{year}}/rust/{{day}} && cargo test
