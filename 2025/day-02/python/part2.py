@@ -12,8 +12,17 @@ def solve(input_path: str) -> int:
     
     for num_range in num_ranges:
         start, end = map(int, num_range.split('-'))
+        
         for idx in range(start, end + 1):
-            pass
+            idx_str = str(idx)
+            idx_str_half_len = len(idx_str) // 2
+            
+            for sub_str_size in range(1, idx_str_half_len + 1):
+                if len(idx_str) % sub_str_size == 0:
+                    full_sub_str = idx_str[:sub_str_size] * (len(idx_str) // sub_str_size)
+                    if idx_str == full_sub_str:
+                        invalid_sum += idx
+                        break
 
     return invalid_sum
 
