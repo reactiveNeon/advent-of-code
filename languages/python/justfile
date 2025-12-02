@@ -21,7 +21,7 @@ create year day:
   
   # Initialize uv project
   cd "$day_dir"
-  uv init --no-readme --name "aoc-{{day}}"
+  uv init --no-readme --name "aoc-{{day}}" --python 3.14
   uv add pytest
   
   # Create empty input files

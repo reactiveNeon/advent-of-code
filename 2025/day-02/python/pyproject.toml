@@ -2,7 +2,7 @@
 name = "aoc-day-02"
 version = "0.1.0"
 description = "Add your description here"
-requires-python = ">=3.10"
+requires-python = ">=3.14"
 dependencies = [
     "pytest>=9.0.1",
 ]
