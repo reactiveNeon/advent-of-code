@@ -1,0 +1,49 @@
+# Python Language Justfile
+# Works for any year, uses uv as package manager
+
+# Get the root directory and language template directory
+root_dir := justfile_directory() / ".." / ".."
+template_dir := justfile_directory() / "template"
+
+# Create a new day
+create year day:
+  #!/usr/bin/env bash
+  set -euo pipefail
+  
+  day_dir="{{root_dir}}/{{year}}/{{day}}/python"
+  mkdir -p "$day_dir/inputs"
+  
+  # Copy template files
+  cp {{template_dir}}/part1.py "$day_dir/"
+  cp {{template_dir}}/part2.py "$day_dir/"
+  cp {{template_dir}}/test_part1.py "$day_dir/"
+  cp {{template_dir}}/test_part2.py "$day_dir/"
+  
+  # Initialize uv project
+  cd "$day_dir"
+  uv init --no-readme --name "aoc-{{day}}"
+  uv add pytest
+  
+  # Create empty input files
+  touch "$day_dir/inputs/input1.txt"
+  touch "$day_dir/inputs/input2.txt"
+  touch "$day_dir/inputs/test1.txt"
+  touch "$day_dir/inputs/test2.txt"
+  
+  echo "Created {{year}}/{{day}}/python with template files"
+
+# Get inputs for a day
+get-inputs year day:
+  {{root_dir}}/scripts/get-inputs.sh --day {{day}} --year {{year}} --root-dir {{root_dir}}/{{year}}/{{day}}/python
+
+# Run a solution
+run year day part:
+  cd {{root_dir}}/{{year}}/{{day}}/python && uv run python part{{part}}.py
+
+# Test a specific part
+test year day part:
+  cd {{root_dir}}/{{year}}/{{day}}/python && uv run pytest test_part{{part}}.py -v
+
+# Test all parts
+test-all year day:
+  cd {{root_dir}}/{{year}}/{{day}}/python && uv run pytest -v

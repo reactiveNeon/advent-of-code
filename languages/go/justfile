@@ -10,39 +10,39 @@ create year day:
   #!/usr/bin/env bash
   set -euo pipefail
   
-  year_dir="{{root_dir}}/{{year}}/go"
-  mkdir -p "$year_dir/{{day}}/inputs"
+  day_dir="{{root_dir}}/{{year}}/{{day}}/go"
+  mkdir -p "$day_dir/inputs"
   
   # Copy and process templates
   for template in {{template_dir}}/*.tmpl; do
     filename=$(basename "$template" .tmpl)
     if [[ "$filename" == "go.mod" ]]; then
-      sed 's/{{{{.Day}}}}/{{day}}/g' "$template" > "$year_dir/{{day}}/$filename"
+      sed 's/{{{{.Day}}}}/{{day}}/g' "$template" > "$day_dir/$filename"
     else
-      cp "$template" "$year_dir/{{day}}/$filename"
+      cp "$template" "$day_dir/$filename"
     fi
   done
   
   # Create empty input files
-  touch "$year_dir/{{day}}/inputs/input1.txt"
-  touch "$year_dir/{{day}}/inputs/input2.txt"
-  touch "$year_dir/{{day}}/inputs/test1.txt"
-  touch "$year_dir/{{day}}/inputs/test2.txt"
+  touch "$day_dir/inputs/input1.txt"
+  touch "$day_dir/inputs/input2.txt"
+  touch "$day_dir/inputs/test1.txt"
+  touch "$day_dir/inputs/test2.txt"
   
-  echo "Created {{year}}/go/{{day}} with template files"
+  echo "Created {{year}}/{{day}}/go with template files"
 
 # Get inputs for a day
 get-inputs year day:
-  {{root_dir}}/scripts/get-inputs.sh --day {{day}} --year {{year}} --root-dir {{root_dir}}/{{year}}/go
+  {{root_dir}}/scripts/get-inputs.sh --day {{day}} --year {{year}} --root-dir {{root_dir}}/{{year}}/{{day}}/go
 
 # Run a solution
 run year day part:
-  cd {{root_dir}}/{{year}}/go/{{day}} && go run part{{part}}.go
+  cd {{root_dir}}/{{year}}/{{day}}/go && go run part{{part}}.go
 
 # Test a specific part
 test year day part:
-  cd {{root_dir}}/{{year}}/go/{{day}} && go test -v -run TestPart{{part}}
+  cd {{root_dir}}/{{year}}/{{day}}/go && go test -v -run TestPart{{part}}
 
 # Test all parts
 test-all year day:
-  cd {{root_dir}}/{{year}}/go/{{day}} && go test -v
+  cd {{root_dir}}/{{year}}/{{day}}/go && go test -v
