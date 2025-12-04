@@ -1,3 +1,5 @@
+import sys
+import time
 from pathlib import Path
 
 
@@ -13,8 +15,11 @@ def solve(input_path: str) -> int:
 
 
 def main() -> None:
-    result = solve("inputs/input1.txt")
+    start = time.perf_counter()
+    result = solve("inputs/input.txt")
+    elapsed = (time.perf_counter() - start) * 1000
     print(result)
+    print(f"Runtime: {elapsed:.2f}ms", file=sys.stderr)
 
 
 if __name__ == "__main__":

@@ -38,12 +38,12 @@ get-inputs year day:
 
 # Run a solution
 run year day part:
-  cd {{root_dir}}/{{year}}/{{day}}/python && uv run python part{{part}}.py
+  @cd {{root_dir}}/{{year}}/{{day}}/python && uv run --quiet python part{{part}}.py
 
 # Test a specific part
 test year day part:
-  cd {{root_dir}}/{{year}}/{{day}}/python && uv run pytest test_part{{part}}.py -v
+  @cd {{root_dir}}/{{year}}/{{day}}/python && uv run --quiet pytest test_part{{part}}.py -v
 
 # Test all parts
 test-all year day:
-  cd {{root_dir}}/{{year}}/{{day}}/python && uv run pytest -v
+  @cd {{root_dir}}/{{year}}/{{day}}/python && uv run --quiet pytest -v

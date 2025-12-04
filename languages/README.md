@@ -9,6 +9,7 @@ This directory contains centralized language-specific configurations that work f
 - **Python** (`languages/python/`) - Python language support (uses uv)
 - **C++** (`languages/cpp/`) - C++ language support
 - **Java** (`languages/java/`) - Java language support
+- **Kotlin** (`languages/kotlin/`) - Kotlin language support
 
 ## Structure
 

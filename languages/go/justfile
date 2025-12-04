@@ -37,12 +37,12 @@ get-inputs year day:
 
 # Run a solution
 run year day part:
-  cd {{root_dir}}/{{year}}/{{day}}/go && go run part{{part}}.go
+  @cd {{root_dir}}/{{year}}/{{day}}/go && go run part{{part}}.go
 
 # Test a specific part
 test year day part:
-  cd {{root_dir}}/{{year}}/{{day}}/go && go test -v -run TestPart{{part}}
+  @cd {{root_dir}}/{{year}}/{{day}}/go && go test -v -run TestPart{{part}}
 
 # Test all parts
 test-all year day:
-  cd {{root_dir}}/{{year}}/{{day}}/go && go test -v
+  @cd {{root_dir}}/{{year}}/{{day}}/go && go test -v

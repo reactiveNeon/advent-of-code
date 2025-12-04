@@ -10,11 +10,11 @@ create year day lang:
     exit 1; \
   fi
   @mkdir -p {{year}}/{{day}}
-  cd languages/{{lang}} && just create {{year}} {{day}}
+  @cd languages/{{lang}} && just create {{year}} {{day}}
 
 # Run a solution
 run year day lang part:
-  @echo "Running {{year}}/{{day}}/{{lang}} part {{part}}..."
+  @echo "Running {{year}}/{{day}}/{{lang}} part {{part}}..." >&2
   @if [ ! -f "languages/{{lang}}/justfile" ]; then \
     echo "Error: Language '{{lang}}' not supported"; \
     echo "Available languages: $(ls -1 languages/ | tr '\n' ' ')"; \
@@ -25,11 +25,11 @@ run year day lang part:
     echo "Create it first with: just create {{year}} {{day}} {{lang}}"; \
     exit 1; \
   fi
-  cd languages/{{lang}} && just run {{year}} {{day}} {{part}}
+  @cd languages/{{lang}} && just run {{year}} {{day}} {{part}}
 
 # Test a solution (specific part)
 test year day lang part:
-  @echo "Testing {{year}}/{{day}}/{{lang}} part {{part}}..."
+  @echo "Testing {{year}}/{{day}}/{{lang}} part {{part}}..." >&2
   @if [ ! -f "languages/{{lang}}/justfile" ]; then \
     echo "Error: Language '{{lang}}' not supported"; \
     echo "Available languages: $(ls -1 languages/ | tr '\n' ' ')"; \
@@ -39,11 +39,11 @@ test year day lang part:
     echo "Error: {{year}}/{{day}}/{{lang}} does not exist"; \
     exit 1; \
   fi
-  cd languages/{{lang}} && just test {{year}} {{day}} {{part}}
+  @cd languages/{{lang}} && just test {{year}} {{day}} {{part}}
 
 # Test all parts for a day
 test-all year day lang:
-  @echo "Testing all parts for {{year}}/{{day}}/{{lang}}..."
+  @echo "Testing all parts for {{year}}/{{day}}/{{lang}}..." >&2
   @if [ ! -f "languages/{{lang}}/justfile" ]; then \
     echo "Error: Language '{{lang}}' not supported"; \
     echo "Available languages: $(ls -1 languages/ | tr '\n' ' ')"; \
@@ -53,7 +53,7 @@ test-all year day lang:
     echo "Error: {{year}}/{{day}}/{{lang}} does not exist"; \
     exit 1; \
   fi
-  cd languages/{{lang}} && just test-all {{year}} {{day}}
+  @cd languages/{{lang}} && just test-all {{year}} {{day}}
 
 # Get inputs for a day
 get-inputs year day lang:
@@ -63,7 +63,7 @@ get-inputs year day lang:
     echo "Available languages: $(ls -1 languages/ | tr '\n' ' ')"; \
     exit 1; \
   fi
-  cd languages/{{lang}} && just get-inputs {{year}} {{day}}
+  @cd languages/{{lang}} && just get-inputs {{year}} {{day}}
 
 # List available languages
 list-langs:

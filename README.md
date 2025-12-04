@@ -74,9 +74,13 @@ just help
 │   │   ├── justfile      # C++ commands (uses make)
 │   │   ├── template/     # C++ templates
 │   │   └── README.md
-│   └── java/
-│       ├── justfile      # Java commands
-│       ├── template/     # Java templates
+│   ├── java/
+│   │   ├── justfile      # Java commands
+│   │   ├── template/     # Java templates
+│   │   └── README.md
+│   └── kotlin/
+│       ├── justfile      # Kotlin commands
+│       ├── template/     # Kotlin templates
 │       └── README.md
 ├── scripts/
 │   └── get-inputs.sh     # Script to fetch puzzle inputs
@@ -86,7 +90,8 @@ just help
 │       ├── rust/         # Rust solution for this day
 │       ├── python/       # Python solution for this day
 │       ├── cpp/          # C++ solution for this day
-│       └── java/         # Java solution for this day
+│       ├── java/         # Java solution for this day
+│       └── kotlin/       # Kotlin solution for this day
 └── 2025/
 ## Workflow
 

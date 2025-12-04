@@ -1,3 +1,4 @@
+#include <chrono>
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -26,8 +27,12 @@ int main()
 {
     try
     {
-        int result = solve("inputs/input1.txt");
+        auto start = std::chrono::high_resolution_clock::now();
+        int result = solve("inputs/input.txt");
+        auto end = std::chrono::high_resolution_clock::now();
+        auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
         std::cout << result << std::endl;
+        std::cerr << "\033[36mRuntime: " << elapsed << "ms\033[0m" << std::endl;
     }
     catch (const std::exception &e)
     {
@@ -44,9 +49,13 @@ int main()
 void test_part1()
 {
     int expected = 0; // TODO: Set expected result
-    int result = solve("inputs/test1.txt");
-    assert(result == expected && "Test failed!");
-    std::cout << "Test passed!" << std::endl;
+    int result = solve("inputs/test.txt");
+    if (result != expected)
+    {
+        std::cout << "\033[31mTest failed! Expected " << expected << " but got " << result << "\033[0m" << std::endl;
+        return;
+    }
+    std::cout << "\033[32mTest passed!\033[0m" << std::endl;
 }
 
 int main()

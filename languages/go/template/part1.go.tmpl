@@ -4,14 +4,18 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"time"
 )
 
 func main() {
-	result, err := solve("inputs/input1.txt")
+	start := time.Now()
+	result, err := solve("inputs/input.txt")
+	elapsed := time.Since(start)
 	if err != nil {
 		panic(err)
 	}
 	fmt.Println(result)
+	fmt.Fprintf(os.Stderr, "Runtime: %dms\n", elapsed.Milliseconds())
 }
 
 func solve(inputPath string) (int, error) {

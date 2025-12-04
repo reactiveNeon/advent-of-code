@@ -16,7 +16,7 @@ public class Part1Test {
 
     public static void testPart1() throws IOException {
         int expected = 0; // TODO: Set expected result
-        int result = Part1.solve("inputs/test1.txt");
+        int result = Part1.solve("inputs/test.txt");
         assert result == expected : String.format("Expected %d, got %d", expected, result);
     }
 }

@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -std=c++17 -Wall -Wextra -O2
+CXXFLAGS = -std=c++23 -Wall -Wextra -O2
 
 .PHONY: all clean part1 part2 test test1 test2
 

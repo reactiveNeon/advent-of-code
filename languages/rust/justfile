@@ -21,12 +21,12 @@ get-inputs year day:
 
 # Run a solution
 run year day part:
-  cd {{root_dir}}/{{year}}/{{day}}/rust && cargo run --bin part{{part}}
+  @cd {{root_dir}}/{{year}}/{{day}}/rust && cargo run --quiet --bin part{{part}}
 
 # Test a specific part
 test year day part:
-  cd {{root_dir}}/{{year}}/{{day}}/rust && cargo test part{{part}}
+  @cd {{root_dir}}/{{year}}/{{day}}/rust && cargo test --quiet part{{part}}
 
 # Test all parts
 test-all year day:
-  cd {{root_dir}}/{{year}}/{{day}}/rust && cargo test
+  @cd {{root_dir}}/{{year}}/{{day}}/rust && cargo test --quiet

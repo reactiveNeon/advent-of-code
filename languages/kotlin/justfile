@@ -1,0 +1,48 @@
+# Kotlin Language Justfile
+# Works for any year
+
+# Get the root directory and language template directory
+root_dir := justfile_directory() / ".." / ".."
+template_dir := justfile_directory() / "template"
+
+# Create a new day
+create year day:
+  #!/usr/bin/env bash
+  set -euo pipefail
+  
+  day_dir="{{root_dir}}/{{year}}/{{day}}/kotlin"
+  mkdir -p "$day_dir/inputs"
+  
+  # Copy template files
+  cp {{template_dir}}/Part1.kt "$day_dir/"
+  cp {{template_dir}}/Part2.kt "$day_dir/"
+  cp {{template_dir}}/Part1Test.kt "$day_dir/"
+  cp {{template_dir}}/Part2Test.kt "$day_dir/"
+  
+  # Create empty input files
+  touch "$day_dir/inputs/input1.txt"
+  touch "$day_dir/inputs/input2.txt"
+  touch "$day_dir/inputs/test1.txt"
+  touch "$day_dir/inputs/test2.txt"
+  
+  echo "Created {{year}}/{{day}}/kotlin with template files"
+
+# Get inputs for a day
+get-inputs year day:
+  {{root_dir}}/scripts/get-inputs.sh --day {{day}} --year {{year}} --root-dir {{root_dir}}/{{year}}/{{day}}/kotlin
+
+# Run a solution
+run year day part:
+  @cd {{root_dir}}/{{year}}/{{day}}/kotlin && kotlinc Part{{part}}.kt -include-runtime -d part{{part}}.jar 2>/dev/null && java -jar part{{part}}.jar
+
+# Test a specific part
+test year day part:
+  @cd {{root_dir}}/{{year}}/{{day}}/kotlin && kotlinc Part{{part}}.kt Part{{part}}Test.kt -include-runtime -d test_part{{part}}.jar 2>/dev/null && java -jar test_part{{part}}.jar
+
+# Test all parts
+test-all year day:
+  #!/usr/bin/env bash
+  set -euo pipefail
+  cd {{root_dir}}/{{year}}/{{day}}/kotlin
+  kotlinc Part1.kt Part1Test.kt -include-runtime -d test_part1.jar 2>/dev/null && java -jar test_part1.jar
+  kotlinc Part2.kt Part2Test.kt -include-runtime -d test_part2.jar 2>/dev/null && java -jar test_part2.jar

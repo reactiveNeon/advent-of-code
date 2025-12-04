@@ -1,8 +1,13 @@
-use std::{fs::File, io};
+use std::{fs::File, io, time::Instant};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    match solve("inputs/input1.txt") {
-        Ok(res) => println!("{}", res),
+    let start = Instant::now();
+    match solve("inputs/input.txt") {
+        Ok(res) => {
+            let elapsed = start.elapsed();
+            println!("{}", res);
+            eprintln!("Runtime: {}ms", elapsed.as_millis());
+        }
         Err(e) => panic!("{}", e)
     }
 
@@ -24,7 +29,7 @@ mod tests {
     fn part1() {
         let expected_res: i64 = todo!();
 
-        match solve("inputs/test1.txt") {
+        match solve("inputs/test.txt") {
             Ok(res) => assert_eq!(expected_res, res),
             Err(e) => panic!("{}", e)
         }
