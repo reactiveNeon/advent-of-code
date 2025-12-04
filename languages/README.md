@@ -6,6 +6,9 @@ This directory contains centralized language-specific configurations that work f
 
 - **Go** (`languages/go/`) - Go language support
 - **Rust** (`languages/rust/`) - Rust language support
+- **Python** (`languages/python/`) - Python language support (uses uv)
+- **C++** (`languages/cpp/`) - C++ language support
+- **Java** (`languages/java/`) - Java language support
 
 ## Structure
 
