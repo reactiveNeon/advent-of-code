@@ -58,13 +58,10 @@ if [[ -z "$INPUT_DATA" ]]; then
     exit 1
 fi
 
-for FILENAME in "input1.txt" "input2.txt"; do
-    FILE_PATH="$INPUTS_DIR/$FILENAME"
-    echo "$INPUT_DATA" > "$FILE_PATH"
-    echo "Wrote to $FILE_PATH"
-done
+FILE_PATH="$INPUTS_DIR/input.txt"
+echo "$INPUT_DATA" > "$FILE_PATH"
+echo "Wrote to $FILE_PATH"
 
-touch "${INPUTS_DIR}/test1.txt"
-touch "${INPUTS_DIR}/test2.txt"
+touch "${INPUTS_DIR}/test.txt"
 
 echo "Successful!!"
