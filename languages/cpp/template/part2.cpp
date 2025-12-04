@@ -1,9 +1,7 @@
 #include <chrono>
 #include <fstream>
 #include <iostream>
-#include <sstream>
 #include <string>
-#include <vector>
 
 int solve(const std::string &input_path)
 {
