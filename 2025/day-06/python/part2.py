@@ -1,4 +1,3 @@
-from itertools import product
 import math
 import sys
 import time
@@ -7,70 +6,49 @@ from pathlib import Path
 
 def solve(input_path: str) -> int:
     """Solve part 2 of the puzzle."""
-    lines = Path(input_path).read_text().strip().split("\n")
+    lines = Path(input_path).read_text().split("\n")
 
     M = len(lines)
-    N = 0
-    for line in lines:
-        N = max(N, len(line))
-        
+    N = max(len(line) for line in lines)
+
     total = 0
     
     nums = []
+    skip_col = False
     for j in range(N - 1, -1, -1):
-        any_digits = False
+        if skip_col:
+            skip_col = False
+            continue
+
         num = 0
         for i in range(0, M - 1):
             try:
-                if lines[i][j] == ' ':
-                    continue
-                
-                num = num * 10 + int(lines[i][j])
-                any_digits = True
+                digit = lines[i][j]
             except IndexError:
-                pass
-        
-        if any_digits:
-            nums.append(num)
-        
+                digit = ' '
+
+            if digit == ' ':
+                continue
+            
+            num = num * 10 + int(digit)
+
+        nums.append(num)
+                
         try:
-            op = lines[-1][j]
-            # print(nums, op)
-            if op != ' ':
-                if op == '*':
-                    total += math.prod(nums)
-                else:
-                    total += sum(nums)
-                nums.clear()
+            poss_op = lines[-1][j]
         except IndexError:
-            pass
-        
+            poss_op = ' '
+
+        if poss_op != ' ':
+            if poss_op == '*':
+                total += math.prod(nums)
+            else:
+                total += sum(nums)
+                
+            nums.clear()
+            skip_col = True 
+            
     return total
-    
-    # for line in lines[:-1]:
-    #     nums_str = line.split()
-        
-    #     for i, num_str in enumerate(nums_str):
-    #         # if idx is odd then from left, if even then from right
-    #         if not (i & 1):
-    #             num_str = num_str[::-1]
-                
-    #         for j, digit in enumerate(num_str):
-    #             if len(store[i]) - 1 < j:
-    #                 padding_needed = j - len(store[i]) + 1
-    #                 padding = [0] * padding_needed
-    #                 store[i].extend(padding)
-                
-    #             store[i][j] = int(store[i][j]) * 10 + int(digit)
-                
-    # print(store)
-    
-    # ops = lines[-1].split()
-    # for i, op in enumerate(ops):     
-    #     if op == '*':
-    #         total += math.prod(store[i])
-    #     else:
-    #         total += sum(store[i])                
 
 
 def main() -> None:
