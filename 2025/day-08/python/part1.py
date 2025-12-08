@@ -7,11 +7,10 @@ from utils.general import distance
 from utils.disjoint_set import DisjointSet
 
 
-def solve(input_path: str) -> int:
+def solve(input_path: str, limit: int) -> int:
     """Solve part 1 of the puzzle."""
     lines = Path(input_path).read_text().strip().split("\n")
 
-    limit = 10
     num_points = len(lines)
     dists = {}
     
@@ -34,9 +33,9 @@ def solve(input_path: str) -> int:
         ds.union(i, j)
         
     fqs = [0 for i in range(num_points)]
-    for i in range(limit):
+    for i in range(num_points):
         fqs[ds.find(i)] += 1
-    
+        
     fqs.sort(reverse=True)
 
     return math.prod(fqs[:3])
@@ -44,7 +43,7 @@ def solve(input_path: str) -> int:
 
 def main() -> None:
     start = time.perf_counter()
-    result = solve("inputs/input.txt")
+    result = solve("inputs/input.txt", 1000)
     elapsed = (time.perf_counter() - start) * 1000
     print(result)
     print(f"Runtime: {elapsed:.2f}ms", file=sys.stderr)

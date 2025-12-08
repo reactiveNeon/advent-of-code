@@ -1,16 +1,21 @@
 class DisjointSet:
     def __init__(self, n: int):
         self.parents = [i for i in range(n)]
+        self.components = n
         
     def union(self, x: int, y: int):
-        px = self.parents[x]
-        py = self.parents[y]
-        
-        if px != py:
+        px = self.find(x)
+        py = self.find(y)
+
+        if py != px:
+            self.components -= 1
             self.parents[py] = px
-    
+
     def find(self, x: int):
-        if self.parents[x] == x:
-            return x
+        temp_x = x
+        while x != self.parents[x]:
+            self.parents[x] = self.parents[self.parents[x]]
+            x = self.parents[x]
         
-        return self.find(self.parents[x])
+        self.parents[temp_x] = x
+        return x
