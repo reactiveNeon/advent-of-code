@@ -32,7 +32,7 @@ def solve(input_path: str) -> int:
         ds.union(i, j)
         if ds.components == 1:
             x1 = int(lines[i].split(',')[0])
-            x2 = int(lines[i].split(',')[1])
+            x2 = int(lines[j].split(',')[0])
             return x1 * x2
             
     raise AssertionError

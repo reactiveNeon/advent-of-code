@@ -34,7 +34,7 @@ def solve(input_path: str, limit: int) -> int:
         
     fqs = [0 for i in range(num_points)]
     for i in range(num_points):
-        fqs[ds.find(i)] += 1
+        fqs[ds.find_recursive(i)] += 1
         
     fqs.sort(reverse=True)
 
