@@ -31,11 +31,12 @@ def solve(input_path: str) -> int:
     for _, (i, j) in dps:
         ds.union(i, j)
         if ds.components == 1:
-            x1, _, _ = map(int, lines[i].split(','))
-            x2, _, _ = map(int, lines[j].split(','))
+            x1 = int(lines[i].split(',')[0])
+            x2 = int(lines[i].split(',')[1])
             return x1 * x2
-    
-    return -1
+            
+    raise AssertionError
+
 
 def main() -> None:
     start = time.perf_counter()
