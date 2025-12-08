@@ -7,11 +7,10 @@ class DisjointSet:
         py = self.parents[y]
         
         if px != py:
-            self.parents[y] = x
+            self.parents[py] = px
     
     def find(self, x: int):
         if self.parents[x] == x:
             return x
         
         return self.find(self.parents[x])
-    
